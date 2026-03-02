@@ -3,7 +3,6 @@ import type { Character } from "../lib/api";
 import { useMemo } from "react";
 
 function CharacterDetail(props: Character) {
-  // Select one random phrase
   const randomPhrase = useMemo(() => {
     if (!props.phrases || props.phrases.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * props.phrases.length);
@@ -11,43 +10,47 @@ function CharacterDetail(props: Character) {
   }, [props.phrases]);
 
   return (
-    <div className="text-center items-center justify-center border-1 border-gray-100 rounded-3xl p-6 shadow-lg transform transition-all duration-300 hover:scale-105 hover:-rotate-1 hover:shadow-2xl cursor-pointer">
-      <div className="flex">
-        <h1 className="font-extrabold text-black mb-4 leading-tight">
+    <div className="group w-80 flex flex-col items-center text-center border border-gray-200 rounded-3xl p-6 shadow-lg transform transition-all duration-300 hover:scale-105 hover:-rotate-1 hover:shadow-2xl cursor-pointer">
+      <div className="flex items-center justify-center gap-2 mb-4">
+        <h1 className="font-extrabold text-black leading-tight">
           {props.name.split(" ").map((word, index) => (
             <span key={index} className="block">
               {word}
             </span>
           ))}
         </h1>
-        {(props.gender == "Male" && (
-          <Mars className="inline-block mr-1 text-blue-500" size={20} />
-        )) ||
-          (props.gender == "Female" && (
-            <Venus className="inline-block mr-1 text-pink-500" size={20} />
-          ))}
+
+        {props.gender === "Male" && (
+          <Mars className="text-blue-500" size={22} />
+        )}
+
+        {props.gender === "Female" && (
+          <Venus className="text-pink-500" size={22} />
+        )}
       </div>
 
+      {/* Image */}
       <img
         src={`https://cdn.thesimpsonsapi.com/500/character/${props.id}.webp`}
         alt={`${props.name} portrait`}
-        className="w-30 h-30 object-cover object-top rounded-2xl shadow-xl mb-4"
+        className="w-32 h-32 object-cover object-top rounded-2xl shadow-xl mb-4 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-2xl"
       />
 
-      <div className="space-y-1 text-black">
-        <p>
-          <strong>{props.occupation}</strong>
-        </p>
+      {/* Info */}
+      <div className="flex flex-col items-center space-y-2">
+        <p className="font-semibold">{props.occupation}</p>
 
         <p>{props.age} years</p>
-        <div>
-          <Cake className="inline-block mr-1 text-red-500" size={20} />
-          <p className="inline-block text-gray-700">{props.birthdate}</p>
+
+        <div className="flex items-center gap-1">
+          <Cake className="text-red-500" size={20} />
+          <p className="text-gray-700">{props.birthdate}</p>
         </div>
+
         {randomPhrase && (
-          <>
-            <p className="italic text-yellow-600 mt-4">"{randomPhrase}"</p>
-          </>
+          <p className="italic text-yellow-600 mt-4 max-w-xs">
+            "{randomPhrase}"
+          </p>
         )}
       </div>
     </div>

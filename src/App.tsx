@@ -11,20 +11,26 @@ function App() {
       totalCharacters: characters.length,
       filteredCharacters: filteredCharacters.length,
     };
-  }, [characters.length, filteredCharacters.length]);
+  }, [characters, filteredCharacters]);
 
   return (
     <>
-      // add a loader when loading
       <h1>Simpsons API Explorer</h1>
-      <CharacterDetail {...stats} />
+
+      {/* Estadísticas */}
+      <p>Total personajes: {stats.totalCharacters}</p>
+      <p>Mostrando: {stats.filteredCharacters}</p>
+
       {error && <p style={{ color: "red" }}>Error: {error}</p>}
+
       {loading ? (
         <p>Loading...</p>
       ) : (
         <ul>
           {filteredCharacters.map((character) => (
-            <li key={character.id}>{character.name}</li>
+            <li key={character.id}>
+              <CharacterDetail {...character} />
+            </li>
           ))}
         </ul>
       )}

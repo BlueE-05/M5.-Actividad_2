@@ -1,20 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
-import { fetchCharacters, type Character } from "../lib/api";
+import { fetchLocations, type Location } from "../lib/api";
 
-export function useCharacters(searchTerm: string) {
-  const [characters, setCharacters] = useState<Character[]>([]);
+export function useLocations(searchTerm: string) {
+  const [locations, setLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     let active = true;
 
-    async function loadCharacters() {
+    async function loadLocations() {
       try {
         setLoading(true);
         setError("");
-        const data = await fetchCharacters();
-        if (active) setCharacters(data);
+        const data = await fetchLocations();
+        if (active) setLocations(data);
       } catch (loadError) {
         if (active) {
           setError(
@@ -28,25 +28,25 @@ export function useCharacters(searchTerm: string) {
       }
     }
 
-    void loadCharacters();
+    void loadLocations();
 
     return () => {
       active = false;
     };
   }, []);
 
-  const filteredCharacters = useMemo(() => {
+  const filteredLocations = useMemo(() => {
     const normalized = searchTerm.trim().toLowerCase();
-    if (!normalized) return characters;
+    if (!normalized) return locations;
 
-    return characters.filter((character) =>
-      character.name.toLowerCase().includes(normalized),
+    return locations.filter((location) =>
+      location.name.toLowerCase().includes(normalized),
     );
-  }, [characters, searchTerm]);
+  }, [locations, searchTerm]);
 
   return {
-    characters,
-    filteredCharacters,
+    locations,
+    filteredLocations,
     loading,
     error,
   };

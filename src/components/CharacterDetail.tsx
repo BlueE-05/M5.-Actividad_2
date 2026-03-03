@@ -33,7 +33,7 @@ function CharacterDetail(props: Character) {
       <img
         src={`https://cdn.thesimpsonsapi.com/500/character/${props.id}.webp`}
         alt={`${props.name} portrait`}
-        className="w-32 h-32 object-cover object-top rounded-2xl shadow-xl mb-4 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-2xl"
+        className="w-32 h-32 object-cover object-top rounded-2xl shadow-xl mb-4 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-2xl group-hover:shadow-yellow-500/50"
       />
 
       {/* Info */}

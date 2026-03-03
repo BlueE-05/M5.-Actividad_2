@@ -7,6 +7,7 @@ import { useCharacters } from "./hooks/useCharacter";
 import { useLocations } from "./hooks/useLocation";
 import { useEpisodes } from "./hooks/useEpisode";
 import { LoaderCircle } from "lucide-react";
+import SearchBar from "./components/SearchBar";
 
 function App() {
   const [activeTab, setActiveTab] = useState("characters"); // State to manage active tab
@@ -88,7 +89,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-center mt-8">
+    <div className="min-h-screen flex flex-col items-center justify-top text-center mt-8">
       <h1 className="text-4xl font-bold mb-4">Simpsons API Explorer</h1>
 
       {/* Tab Bar for Selection */}
@@ -145,15 +146,11 @@ function App() {
       </div>
 
       {/* Search Bar */}
-      <div className="mb-6 w-full max-w-md">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={filteringText}
-          onChange={(e) => setFilteringText(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
+      <SearchBar
+        value={filteringText}
+        onChange={setFilteringText}
+        placeholder="Search characters, locations, episodes..."
+      />
 
       {/* Content */}
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
